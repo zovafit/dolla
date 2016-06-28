@@ -41,3 +41,7 @@ Dolla returns a tuple, so you're probably going to want to match on that. If you
 get `:ok` as the first element in the tuple, then your receipt has successfully
 validated.
 
+## TODO
+
+ - [] Handle `21007` & `21008` status codes and appropriately retry in the Production/Sandbox URL
+ - [] Properly parse dates rather than leaving them as strings
