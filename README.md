@@ -4,6 +4,8 @@
 Dolla provides a wrapper over Apple's app store receipt verification service in
 Elixir.
 
+![Illustrated sloth with caption: Dolla dolla bill, ya'll](sloth.jpg)
+
 It aims to be relatively thin, giving you structs to play with instead of having
 to deal withe logic and errors yourself.
 
