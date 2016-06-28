@@ -7,7 +7,10 @@ defmodule Dolla.Mixfile do
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps]
+     deps: deps,
+     package: package,
+     description: description
+    ]
   end
 
   # Configuration for the OTP application
@@ -31,6 +34,25 @@ defmodule Dolla.Mixfile do
     [{:httpoison, "~> 0.9.0"},
      {:bypass, "~> 0.1", only: [:test]},
      {:poison, "~> 2.0"}
+    ]
+  end
+
+  defp description do
+    """
+    Dolla provides a wrapper over Apple's app store receipt verification service in Elixir.
+
+   """
+  end
+
+  defp package do
+    [
+      name: :dolla,
+      files: ["lib", "mix.exs", "README*", "LICENSE*", "config"],
+      maintainers: ["Andrew Harvey"],
+      licenses: ["BSD"],
+      links: %{
+        "GitHub" => "https://github.com/zovafit/dolla"
+      }
     ]
   end
 end
