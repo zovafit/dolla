@@ -1,4 +1,5 @@
 # Dolla
+[![Build Status](https://travis-ci.org/zovafit/dolla.svg?branch=master)](https://travis-ci.org/zovafit/dolla)
 ## App Store Receipt IAP Verification in Elixir
 
 Dolla provides a wrapper over Apple's app store receipt verification service in
