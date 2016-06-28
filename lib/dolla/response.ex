@@ -1,5 +1,8 @@
 defmodule Dolla.Response do
   alias Dolla.Response
+  alias Dolla.Receipt
+  alias Dolla.InAppReceipt
+
   defstruct [:status, :receipt, :latest_receipt, :latest_receipt_info, :error]
 
   defmodule ValidationError do
@@ -22,5 +25,12 @@ defmodule Dolla.Response do
 
   def handle_error(response) do
     %Response{response | error: ValidationError.exception(response.status)}
+  end
+
+  def decode_template do
+    %Response{
+      receipt: %Receipt{in_app: [%InAppReceipt{}]},
+      latest_receipt_info: [%InAppReceipt{}]
+    }
   end
 end

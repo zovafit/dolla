@@ -1,8 +1,5 @@
 defmodule Dolla.Client do
-
   alias Dolla.Response
-  alias Dolla.Receipt
-  alias Dolla.InAppReceipt
 
   use HTTPoison.Base
 
@@ -39,9 +36,7 @@ defmodule Dolla.Client do
   end
 
   defp process_response_body(body) do
-    case Poison.decode(body, as: %Response{receipt: %Receipt{in_app: [%InAppReceipt{}]},
-                                           latest_receipt_info: [%InAppReceipt{}]
-                                          }) do
+    case Poison.decode(body, as: Response.decode_template) do
       {:ok, response} -> response
       {:error, _} -> body
     end
