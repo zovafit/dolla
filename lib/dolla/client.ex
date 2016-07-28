@@ -4,7 +4,6 @@ defmodule Dolla.Client do
   use HTTPoison.Base
 
   @prod_url "https://buy.itunes.apple.com/verifyReceipt"
-  @password Application.get_env(:dolla, :secret)
 
   defmodule ServerError do
     defexception [:status_code, :message]
@@ -31,8 +30,12 @@ defmodule Dolla.Client do
   end
 
   defp process_request_body(receipt_data) do
-    %{"receipt-data" => receipt_data, "password" => @password}
+    %{"receipt-data" => receipt_data, "password" => password}
     |> Poison.encode!
+  end
+
+  defp password do
+    Application.get_env(:dolla, :secret)
   end
 
   defp process_response_body(body) do
