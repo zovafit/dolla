@@ -17,7 +17,7 @@ defmodule Dolla.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :httpoison],
+    [applications: [:logger, :httpoison, :timex],
      mod: {Dolla, []}]
   end
 
@@ -32,8 +32,10 @@ defmodule Dolla.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [{:httpoison, "~> 0.9.0"},
-     {:bypass, "~> 0.1", only: [:test]},
-     {:poison, "~> 1.5 or ~> 2.0"}
+     {:bypass, "~> 0.5", only: [:test]},
+     {:poison, "~> 1.5 or ~> 2.0"},
+     {:timex, "~> 2.2"},
+     {:timex_poison, "~> 0.1"}
     ]
   end
 

@@ -60,6 +60,15 @@ defmodule DollaTest do
     assert {:error, %Response{error: %Dolla.Client.ServerError{status_code: 503}}} = Dolla.verify("LOL BROKEN")
   end
 
+  test "parses dates into Timex formats", %{bypass: bypass} do
+    Bypass.expect bypass, fn conn ->
+      assert "POST" == conn.method
+      Plug.Conn.resp(conn, 200, DollaTest.Fixtures.receipt_with_iaps)
+    end
+    {:ok, %Response{receipt: %Receipt{in_app: [iap | _]}}} = Dolla.verify("RECEIPT_DATA")
+    assert %Timex.DateTime{} = iap.purchase_date
+  end
+
   @tag :skip
   test "switches to the sandbox with error 21007" do
     
