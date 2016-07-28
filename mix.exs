@@ -49,7 +49,7 @@ defmodule Dolla.Mixfile do
   defp package do
     [
       name: :dolla,
-      files: ["lib", "mix.exs", "README*", "LICENSE*", "config"],
+      files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["Andrew Harvey"],
       licenses: ["BSD"],
       links: %{
