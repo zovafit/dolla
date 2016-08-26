@@ -17,7 +17,7 @@ defmodule Dolla.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :httpoison, :timex],
+    [applications: [:logger, :httpoison, :timex, :timex_poison],
      mod: {Dolla, []}]
   end
 
