@@ -69,14 +69,20 @@ defmodule DollaTest do
     assert %Timex.DateTime{} = iap.purchase_date
   end
 
-  @tag :skip
-  test "switches to the sandbox with error 21007" do
-    
-  end
+  test "switches to the sandbox with error 21007", %{bypass: prod} do
+    sandbox = Bypass.open
+    Application.put_env(:dolla, :sandbox, "http://localhost:#{sandbox.port}/verifyReceipt")
 
-  @tag :skip
-  test "switches to produciton with error 21008" do
-    
+    Bypass.expect prod, fn conn ->
+      assert "POST" == conn.method
+      Plug.Conn.resp(conn, 200, ~s({"status":21007, "environment":"Production"}))
+    end
+
+    Bypass.expect sandbox, fn conn ->
+      assert "POST" == conn.method
+      Plug.Conn.resp(conn, 200, DollaTest.Fixtures.receipt_with_iaps)
+    end
+    {:ok, %Response{receipt: %Receipt{in_app: [iap | _]}}} = Dolla.verify("RECEIPT_DATA")
   end
 
 end

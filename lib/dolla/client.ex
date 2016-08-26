@@ -4,6 +4,7 @@ defmodule Dolla.Client do
   use HTTPoison.Base
 
   @prod_url "https://buy.itunes.apple.com/verifyReceipt"
+  @sandbox_url "https://sandbox.itunes.apple.com/verifyReceipt"
 
   defmodule ServerError do
     defexception [:status_code, :message]
@@ -13,13 +14,14 @@ defmodule Dolla.Client do
     end
   end
 
-  def verify(receipt_data) do
-    url = Application.get_env(:dolla, :endpoint, @prod_url)
-    case post(url, receipt_data) do
+  def verify(receipt_data, environment \\ :prod) do
+
+    case post(url(environment), receipt_data) do
       {:ok, %HTTPoison.Response{status_code: 200, body: response}} ->
         case response do
           %{status: 0} -> {:ok, response}
           %{status: 21006} -> {:ok, response} # Subscription is expired. Carry on!
+          %{status: 21007} -> verify(receipt_data, :sandbox)
           %{status: status} when status > 0 ->
             {:error, Response.handle_error(response)}
         end
@@ -43,5 +45,13 @@ defmodule Dolla.Client do
       {:ok, response} -> response
       {:error, _} -> body
     end
+  end
+
+  defp url(:prod) do
+    Application.get_env(:dolla, :endpoint, @prod_url)
+  end
+
+  defp url(:sandbox) do
+    Application.get_env(:dolla, :sandbox, @sandbox_url)
   end
 end
