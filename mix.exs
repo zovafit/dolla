@@ -3,7 +3,7 @@ defmodule Dolla.Mixfile do
 
   def project do
     [app: :dolla,
-     version: "0.2.0",
+     version: "0.2.1",
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -33,7 +33,7 @@ defmodule Dolla.Mixfile do
   defp deps do
     [{:httpoison, "~> 0.9.0"},
      {:bypass, "~> 0.5", only: [:test]},
-     {:poison, "~> 1.5 or ~> 2.0"},
+     {:poison, "~> 2.0"},
      {:timex, "~> 2.2"},
      {:timex_poison, "~> 0.1"},
      {:ex_doc, ">= 0.0.0", only: :dev}
