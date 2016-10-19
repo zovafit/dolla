@@ -67,6 +67,7 @@ defmodule DollaTest do
     end
     {:ok, %Response{receipt: %Receipt{in_app: [iap | _]}}} = Dolla.verify("RECEIPT_DATA")
     assert %Timex.DateTime{} = iap.purchase_date
+    assert iap.product_id == "com.zova.recurring.1month"
   end
 
   test "switches to the sandbox with error 21007", %{bypass: prod} do
