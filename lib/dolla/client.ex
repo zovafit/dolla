@@ -24,6 +24,7 @@ defmodule Dolla.Client do
           %{status: 21007} -> verify(receipt_data, :sandbox)
           %{status: status} when status > 0 ->
             {:error, Response.handle_error(response)}
+          r -> {:error, Response.handle_error(r)}
         end
       {:ok, %HTTPoison.Response{status_code: code, body: response}} when code > 299 ->
         {:error, %Response{error: ServerError.exception(code)}}

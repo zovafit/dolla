@@ -60,6 +60,13 @@ defmodule DollaTest do
     assert {:error, %Response{error: %Dolla.Client.ServerError{status_code: 503}}} = Dolla.verify("LOL BROKEN")
   end
 
+  test "when the server returns garbage", %{bypass: bypass} do
+    Bypass.expect bypass, fn conn ->
+      Plug.Conn.resp(conn, 200, "YOU SHALL NOT PARSE!")
+    end
+    assert {error, %Response{error: %Dolla.Response.ParseError{}}} = Dolla.verify("Lulz")
+  end
+
   test "parses dates into Timex formats", %{bypass: bypass} do
     Bypass.expect bypass, fn conn ->
       assert "POST" == conn.method

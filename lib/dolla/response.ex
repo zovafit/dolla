@@ -23,9 +23,24 @@ defmodule Dolla.Response do
     end
   end
 
-  def handle_error(response) do
-    %Response{response | error: ValidationError.exception(response.status)}
+  defmodule ParseError do
+    defexception [:body, :message]
+
+    def exception(body) do
+      %__MODULE__{message: "Could not parse response: #{String.slice(body, 0, 20)}...",
+                  body: body
+      }
+    end
   end
+
+  def handle_error(%{status: status} = response) do
+    %Response{response | error: ValidationError.exception(status)}
+  end
+
+  def handle_error(response) do
+    %Response{error: ParseError.exception(response)}
+  end
+
 
   def decode_template do
     %Response{
