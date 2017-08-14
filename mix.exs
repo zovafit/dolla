@@ -31,10 +31,10 @@ defmodule Dolla.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:httpoison, "~> 0.9.0"},
+    [{:httpoison, "~> 0.9"},
      {:bypass, "~> 0.5", only: [:test]},
-     {:poison, "~> 2.0"},
-     {:timex, "~> 2.2"},
+     {:poison, "~> 2.0 or ~> 3.1"},
+     {:timex, "~> 3.1"},
      {:timex_poison, "~> 0.1"},
      {:ex_doc, ">= 0.0.0", only: :dev}
     ]

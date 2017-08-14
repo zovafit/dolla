@@ -73,7 +73,7 @@ defmodule DollaTest do
       Plug.Conn.resp(conn, 200, DollaTest.Fixtures.receipt_with_iaps)
     end
     {:ok, %Response{receipt: %Receipt{in_app: [iap | _]}}} = Dolla.verify("RECEIPT_DATA")
-    assert %Timex.DateTime{} = iap.purchase_date
+    assert %DateTime{} = iap.purchase_date
     assert iap.product_id == "com.zova.recurring.1month"
   end
 
