@@ -26,14 +26,14 @@ defmodule Dolla.Client do
             {:error, Response.handle_error(response)}
           r -> {:error, Response.handle_error(r)}
         end
-      {:ok, %HTTPoison.Response{status_code: code, body: response}} when code > 299 ->
+      {:ok, %HTTPoison.Response{status_code: code, body: _response}} when code > 299 ->
         {:error, %Response{error: ServerError.exception(code)}}
       {:error, error} -> {:error, %Response{error: error}}
     end
   end
 
   defp process_request_body(receipt_data) do
-    %{"receipt-data" => receipt_data, "password" => password}
+    %{"receipt-data" => receipt_data, "password" => password()}
     |> Poison.encode!
   end
 

@@ -64,7 +64,7 @@ defmodule DollaTest do
     Bypass.expect bypass, fn conn ->
       Plug.Conn.resp(conn, 200, "YOU SHALL NOT PARSE!")
     end
-    assert {error, %Response{error: %Dolla.Response.ParseError{}}} = Dolla.verify("Lulz")
+    assert {:error, %Response{error: %Dolla.Response.ParseError{}}} = Dolla.verify("Lulz")
   end
 
   test "parses dates into Timex formats", %{bypass: bypass} do
@@ -90,7 +90,7 @@ defmodule DollaTest do
       assert "POST" == conn.method
       Plug.Conn.resp(conn, 200, DollaTest.Fixtures.receipt_with_iaps)
     end
-    {:ok, %Response{receipt: %Receipt{in_app: [iap | _]}}} = Dolla.verify("RECEIPT_DATA")
+    {:ok, %Response{receipt: %Receipt{}}} = Dolla.verify("RECEIPT_DATA")
   end
 
 end
