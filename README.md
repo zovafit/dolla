@@ -16,20 +16,26 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
 
   1. Add dolla to your list of dependencies in `mix.exs`:
 
-        def deps do
-          [{:dolla, "~> 0.3.0"}]
-        end
+  ```elixir
+  def deps do
+    [{:dolla, "~> 0.3.0"}]
+  end
+  ```
 
   2. Ensure dolla is started before your application:
 
-        def application do
-          [applications: [:dolla]]
-        end
+  ```elixir
+  def application do
+    [applications: [:dolla]]
+  end
+  ```
         
   3. If you're verifying receipts with recurring subscriptions, configure the
      secret in your dev.exs and prod.exs respectively
      
-        config :dolla, :secret, "YOUR_SECRET"
+  ```elixir
+  config :dolla, :secret, "YOUR_SECRET"
+  ```
 
 ## Usage
 
