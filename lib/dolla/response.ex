@@ -18,6 +18,7 @@ defmodule Dolla.Response do
         21003 -> "The receipt could not be authenticated."
         21004 -> "The shared secret you provided does not match the shared secret on file for your account."
         21005 -> "The receipt server is not currently available."
+        21010 -> "The receipt could not be authorized."
         code -> "An unknown error code (#{code}) was returned."
       end
     end
