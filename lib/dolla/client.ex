@@ -16,7 +16,7 @@ defmodule Dolla.Client do
 
   def verify(receipt_data, environment \\ :prod) do
 
-    case post(url(environment), receipt_data) do
+    case post(url(environment), receipt_data, [timeout: 30_000, recv_timeout: 30_000]) do
       {:ok, %HTTPoison.Response{status_code: 200, body: response}} ->
         case response do
           %{status: 0} -> {:ok, response}
