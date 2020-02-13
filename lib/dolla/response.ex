@@ -3,7 +3,7 @@ defmodule Dolla.Response do
   alias Dolla.Receipt
   alias Dolla.InAppReceipt
 
-  defstruct [:status, :receipt, :latest_receipt, :latest_receipt_info, :error]
+  defstruct [:status, :environment, :receipt, :latest_receipt, :latest_receipt_info, :error]
 
   defmodule ValidationError do
     defexception [:status, :message]
