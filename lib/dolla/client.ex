@@ -32,7 +32,7 @@ defmodule Dolla.Client do
     end
   end
 
-  defp process_request_body(receipt_data) do
+  def process_request_body(receipt_data) do
     %{"receipt-data" => receipt_data, "password" => password()}
     |> Poison.encode!
   end
@@ -41,7 +41,7 @@ defmodule Dolla.Client do
     Application.get_env(:dolla, :secret)
   end
 
-  defp process_response_body(body) do
+  def process_response_body(body) do
     case Poison.decode(body, as: Response.decode_template) do
       {:ok, response} -> response
       {:error, _} -> body

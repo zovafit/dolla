@@ -3,10 +3,10 @@ defmodule Dolla.Mixfile do
 
   def project do
     [app: :dolla,
-     version: "0.3.3",
-     elixir: "~> 1.5",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
+     version: "0.3.4",
+     elixir: "~> 1.10",
+     build_embedded: Mix.env() == :prod,
+     start_permanent: Mix.env() == :prod,
      deps: deps(),
      package: package(),
      description: description()
@@ -17,7 +17,7 @@ defmodule Dolla.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :httpoison, :timex, :timex_poison],
+    [extra_applications: [:logger, :httpoison, :timex, :timex_poison],
      mod: {Dolla, []}]
   end
 
@@ -31,12 +31,13 @@ defmodule Dolla.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:httpoison, "~> 0.9"},
-     {:bypass, "~> 0.5", only: [:test]},
-     {:poison, "~> 2.0 or ~> 3.1"},
-     {:timex, "~> 3.1"},
-     {:timex_poison, "~> 0.1"},
-     {:ex_doc, ">= 0.0.0", only: :dev}
+    [{:httpoison, "~> 1.6"},
+     {:bypass, "~> 1.0", only: [:test]},
+     {:poison, "~> 3.0"},
+     {:timex, "~> 3.6"},
+     {:timex_poison, "~> 0.2.0"},
+     {:ex_doc, ">= 0.0.0", only: :dev},
+     {:plug_cowboy, "~> 2.3"}
     ]
   end
 
